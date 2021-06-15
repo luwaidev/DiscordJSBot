@@ -2,15 +2,27 @@ require('dotenv').config();
 
 const Discord = require("discord.js");
 
+const myIntents = new Discord.Intents();
+myIntents.add('GUILD_PRESENCES');
+// myIntents.presences = true;
+console.log(myIntents)
 const client = new Discord.Client()
-const guild = new Discord.Guild();
 
+const guild = new Discord.Guild();
 // Head honchos
 const luwaiwong = "392083955471613955"
 const nams = "345242253532594176"
 const armadillo = "429694692708319254"
 
 let lastKickedMembers = [];
+ 
+
+client.on("presenceUpdate", (oldPresence, newPresence) => {
+    if (!newPresence.activities) return false;
+    if (newPresence.userID == luwaiwong){
+        console.log(newPresence);
+    }
+});
 
 // Regular discord bot stuff
 
@@ -34,6 +46,19 @@ client.on("message", msg => {
         msg.reply("for you m'lady", {files: ["./images/no.png"]});
     }
 
+    // Shut the fuck up
+    if (msg.content.startsWith(".shut the fuck up")){
+        if (msg.mentions.members.first()){
+            let user = msg.mentions.members.first();
+            msg.channel.send("<@"+user.id+"> get shut the fucked up");
+            user.voice.setMute(true);
+
+        } else {
+            msg.reply("you shut the fuck up");
+            msg.member.voice.setMute(true);
+        }
+    }
+
     // Check for kick keyword
     if (msg.content.startsWith(".kick")){
 
@@ -50,11 +75,9 @@ client.on("message", msg => {
 
             // List and record roles
             lastKickedMembers.push([user.id, ...member._roles])
-            console.log(lastKickedMembers)
             var roleList = "";
             for (let i = 0; i < member._roles.length; i++) {
                 roleList = roleList+"  |  "+msg.guild.roles.cache.get(member._roles[i]).name;
-                
             }
             msg.channel.send(roleList);
 
@@ -64,15 +87,14 @@ client.on("message", msg => {
                 msg.reply("fuck off idiot you can't kick me with my own bot");
             }   else {
                 target.kick("lmao get shreked nerd").then(() => {
-                    msg.reply('get fucked dumbass');
+                    msg.channel.send("<@"+user.id+'> get fucked dumbass');
                 }).catch (err => {
                     msg.reply('yo this dude is like god or something');
                     console.error(err);
                 })
             }
-           
         }   else {
-            msg.reply("That name is not valid");
+            msg.reply("you probably spelled something wrong dumbass");
         }
 
     }
@@ -97,22 +119,20 @@ client.on('guildMemberAdd', member => {
         lastKickedMembers[kickedIndex] = [0];
     }
 });
+
 // User presence stuff
 const luwai = {
  
 }
 
 
-
 function GetPresence(){
-    const user = client.users.fetch('392083955471613955');
+    let user = client.users.fetch(luwaiwong);
     user.then((result) => {
         console.log(result.username);
-        client.user.presence.status.
-        console.log(result.presence.status);
-        console.log(result.presence.activities.name);
+        console.log(result.presence);
     }).catch((err) => {
-        
+        console.log(err);
     });
 }
 exports.luwai = luwai;
