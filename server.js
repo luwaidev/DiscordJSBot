@@ -129,7 +129,11 @@ client.login(process.env.DISCORDJS_BOT_TOKEN);
 
 // SERVER
 app.get('/', (req, res) => {
-    res.send('Hello World')
+    if (luwai === null){
+        res.send("No presence initiallized");
+    }   else {
+        res.send(luwai)
+    }
 });
 
 app.get('/info', (req, res) => {
