@@ -138,8 +138,8 @@ app.get('/', (req, res) => {
         res.send("No presence initiallized");
     }   else {
         res.send(luwai);
-        
-        
+        res.header('Access-Control-Allow-Origin', '*');
+        res.next();
     }
 });
 
