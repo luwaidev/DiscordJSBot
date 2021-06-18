@@ -8,8 +8,6 @@ const Discord = require("discord.js");
 
 const myIntents = new Discord.Intents();
 myIntents.add('GUILD_PRESENCES');
-// myIntents.presences = true;
-console.log(myIntents)
 const client = new Discord.Client()
 
 const guild = new Discord.Guild();
@@ -19,12 +17,15 @@ const nams = "345242253532594176"
 const armadillo = "429694692708319254"
 
 let lastKickedMembers = [];
+
+let luwai = {}
  
 
 client.on("presenceUpdate", (oldPresence, newPresence) => {
     if (!newPresence.activities) return false;
     if (newPresence.userID == luwaiwong){
         console.log(newPresence);
+        luwai = newPresence;
     }
 });
 
@@ -124,19 +125,6 @@ client.on('guildMemberAdd', member => {
     }
 });
 
-
-
-
-function GetPresence(){
-    let user = client.users.fetch(luwaiwong);
-    user.then((result) => {
-        console.log(result.username);
-        console.log(result.presence);
-    }).catch((err) => {
-        console.log(err);
-    });
-}
-exports.luwai = luwai;
 client.login(process.env.DISCORDJS_BOT_TOKEN);
 
 // SERVER
