@@ -133,13 +133,17 @@ client.on('guildMemberAdd', member => {
 client.login(process.env.DISCORDJS_BOT_TOKEN);
 
 // SERVER
+
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    next();
+  });
+
 app.get('/', (req, res) => {
     if (luwai === null){
         res.send("No presence initiallized");
     }   else {
         res.send(luwai);
-        res.header('Access-Control-Allow-Origin', '*');
-        res.next();
     }
 });
 
