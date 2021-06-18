@@ -1,5 +1,10 @@
 const express = require('express');
 const app = express();
+const http = require("http");
+
+setInterval(function() {
+    http.get("https://luwai-discordjs-bot.herokuapp.com/");
+}, 300000); // every 5 minutes (300000)
 
 // DISCORD BOT
 require('dotenv').config();
@@ -24,8 +29,8 @@ let luwai = {}
 client.on("presenceUpdate", (oldPresence, newPresence) => {
     if (!newPresence.activities) return false;
     if (newPresence.userID == luwaiwong){
-        console.log(newPresence);
         luwai = newPresence;
+        console.log(luwai);
     }
 });
 
@@ -132,7 +137,9 @@ app.get('/', (req, res) => {
     if (luwai === null){
         res.send("No presence initiallized");
     }   else {
-        res.send(luwai)
+        res.send(luwai);
+        
+        
     }
 });
 
