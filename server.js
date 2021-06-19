@@ -84,7 +84,7 @@ client.on("message", msg => {
             msg.channel.send("Roles:");
 
             // List and record roles
-            lastKickedMembers.push([user.id, ...member._roles])
+            lastKickedMembers.push([user.id, user.username, ...member._roles])
             var roleList = "";
             for (let i = 0; i < member._roles.length; i++) {
                 roleList = roleList+"  |  "+msg.guild.roles.cache.get(member._roles[i]).name;
@@ -123,11 +123,16 @@ client.on('guildMemberAdd', member => {
     }
 
     if (wasKickedMember) {
-        for (let i = 1; i < lastKickedMembers[kickedIndex].length; i++){
+        for (let i = 2; i < lastKickedMembers[kickedIndex].length; i++){
             member.roles.add(lastKickedMembers[kickedIndex][i]);
         }
-        lastKickedMembers[kickedIndex] = [0];
     }
+    id = lastKickedMembers[kickedIndex][0];
+    lastKickedMembers = lastKickedMembers.filter(function(item){
+        item[0] != id;
+    })
+
+    console.log(lastKickedMembers);
 });
 
 client.login(process.env.DISCORDJS_BOT_TOKEN);
@@ -137,7 +142,7 @@ client.login(process.env.DISCORDJS_BOT_TOKEN);
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
     next();
-  });
+});
 
 app.get('/', (req, res) => {
     if (luwai === null){
