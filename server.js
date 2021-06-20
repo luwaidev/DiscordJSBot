@@ -51,7 +51,7 @@ client.on("message", msg => {
         msg.reply("amen brotha");
     }   else if (msg.content === ".porn"){
         msg.reply("for you m'lady", {files: ["./images/no.png"]});
-    }   else if (msg.content === "test"){
+    }   else if (msg.content.startsWith("test")){
         if (msg.mentions.members.first() ) {
 
             let user = msg.mentions.users.first();
