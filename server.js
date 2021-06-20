@@ -2,10 +2,6 @@ const express = require('express');
 const app = express();
 const http = require("http");
 
-setInterval(function() {
-    http.get("https://luwai-discordjs-bot.herokuapp.com/");
-}, 300000); // every 5 minutes (300000)
-
 // DISCORD BOT
 require('dotenv').config();
 
