@@ -87,7 +87,7 @@ client.on("message", msg => {
             msg.channel.send("Roles:");
 
             // List and record roles
-            lastKickedMembers.push([user.id, member.displayColor, ...member._roles])
+            lastKickedMembers.push([user.id, member.displayName, ...member._roles])
             var roleList = "";
             for (let i = 0; i < member._roles.length; i++) {
                 roleList = roleList+"  |  "+msg.guild.roles.cache.get(member._roles[i]).name;
@@ -134,7 +134,7 @@ client.on('guildMemberAdd', member => {
             member.roles.add(lastKickedMembers[kickedIndex][i]);
         }
         // Add nickname
-        member.displayName = lastKickedmembers[knickedIndex][1];
+        member.displayName = lastKickedmembers[kickedIndex][1];
     }
     id = lastKickedMembers[kickedIndex][0];
     lastKickedMembers = lastKickedMembers.filter(function(item){
