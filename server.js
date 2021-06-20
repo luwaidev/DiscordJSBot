@@ -20,6 +20,7 @@ const guild = new Discord.Guild();
 const luwaiwong = "392083955471613955"
 const nams = "345242253532594176"
 const armadillo = "429694692708319254"
+const invite = "https://discord.gg/d4jMws2XM8"
 
 let lastKickedMembers = [];
 
@@ -98,6 +99,7 @@ client.on("message", msg => {
             }   else {
                 target.kick("lmao get shreked nerd").then(() => {
                     msg.channel.send("<@"+user.id+'> get fucked dumbass');
+                    user.send(invite);
                 }).catch (err => {
                     msg.reply('yo this dude is like god or something');
                     console.error(err);
@@ -125,12 +127,12 @@ client.on('guildMemberAdd', member => {
 
     
     if (wasKickedMember) {
-        // Add nickname
-        member.displayName = lastKickedmembers[knickedIndex][1];
         // Add all roles
         for (let i = 2; i < lastKickedMembers[kickedIndex].length; i++){
             member.roles.add(lastKickedMembers[kickedIndex][i]);
         }
+        // Add nickname
+        member.displayName = lastKickedmembers[knickedIndex][1];
     }
     id = lastKickedMembers[kickedIndex][0];
     lastKickedMembers = lastKickedMembers.filter(function(item){
