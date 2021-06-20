@@ -84,7 +84,7 @@ client.on("message", msg => {
             msg.channel.send("Roles:");
 
             // List and record roles
-            lastKickedMembers.push([user.id, user.username, ...member._roles])
+            lastKickedMembers.push([user.id, member.displayColor, ...member._roles])
             var roleList = "";
             for (let i = 0; i < member._roles.length; i++) {
                 roleList = roleList+"  |  "+msg.guild.roles.cache.get(member._roles[i]).name;
@@ -112,6 +112,7 @@ client.on("message", msg => {
 
 // On user join
 client.on('guildMemberAdd', member => {
+    // Find member index
     let wasKickedMember = false;
     let kickedIndex = 0;
     for (let i = 0; i < lastKickedMembers.length; i++){
@@ -122,7 +123,11 @@ client.on('guildMemberAdd', member => {
         }
     }
 
+    
     if (wasKickedMember) {
+        // Add nickname
+        member.displayName = lastKickedmembers[knickedIndex][1];
+        // Add all roles
         for (let i = 2; i < lastKickedMembers[kickedIndex].length; i++){
             member.roles.add(lastKickedMembers[kickedIndex][i]);
         }
@@ -151,10 +156,6 @@ app.get('/', (req, res) => {
         res.send(luwai);
     }
 });
-
-app.get('/info', (req, res) => {
-    res.send(JSON.stringify({ a:1, b:2, c:3 }));
-})
 
 // PORT
 const port = process.env.PORT || 3000;
