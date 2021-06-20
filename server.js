@@ -51,13 +51,7 @@ client.on("message", msg => {
         msg.reply("amen brotha");
     }   else if (msg.content === ".porn"){
         msg.reply("for you m'lady", {files: ["./images/no.png"]});
-    }   else if (msg.content.startsWith("test")){
-        if (msg.mentions.members.first() ) {
-
-            let user = msg.mentions.users.first();
-            user.send(invite);
-        }
-    }
+    }   
 
     // Shut the fuck up
     if (msg.content.startsWith(".shut the fuck up")){
@@ -96,12 +90,13 @@ client.on("message", msg => {
 
             const target = msg.guild.members.cache.get(user.id);
 
+            user.send(invite);
+            
             if (target.id == luwaiwong){
                 msg.reply("fuck off idiot you can't kick me with my own bot");
             }   else {
                 target.kick("lmao get shreked nerd").then(() => {
                     msg.channel.send("<@"+user.id+'> get fucked dumbass');
-                    user.send(invite);
                 }).catch (err => {
                     msg.reply('yo this dude is like god or something');
                     console.error(err);
@@ -134,7 +129,7 @@ client.on('guildMemberAdd', member => {
             member.roles.add(lastKickedMembers[kickedIndex][i]);
         }
         // Add nickname
-        member.displayName = lastKickedmembers[kickedIndex][1];
+        member.displayName = lastKickedMembers[kickedIndex][1];
     }
     id = lastKickedMembers[kickedIndex][0];
     lastKickedMembers = lastKickedMembers.filter(function(item){
