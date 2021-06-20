@@ -89,6 +89,7 @@ client.on("message", msg => {
 
             // List and record roles
             lastKickedMembers.push([user.id, member.displayName, ...member._roles])
+            console.log([user.id, member.displayName, ...member._roles])
             var roleList = "";
             for (let i = 0; i < member._roles.length; i++) {
                 roleList = roleList+"  |  "+msg.guild.roles.cache.get(member._roles[i]).name;
@@ -97,18 +98,20 @@ client.on("message", msg => {
 
             const target = msg.guild.members.cache.get(user.id);
 
-            user.send(invite);
+            user.send("For you m'lady | "+invite).then(() => {
+                if (target.id == luwaiwong){
+                    msg.reply("fuck off idiot you can't kick me with my own bot");
+                }   else {
+                    target.kick("lmao get shreked nerd").then(() => {
+                        msg.channel.send("<@"+user.id+'> get fucked dumbass');
+                    }).catch (err => {
+                        msg.reply('yo this dude is like god or something');
+                        console.error(err);
+                    })
+                }
+            });
 
-            if (target.id == luwaiwong){
-                msg.reply("fuck off idiot you can't kick me with my own bot");
-            }   else {
-                target.kick("lmao get shreked nerd").then(() => {
-                    msg.channel.send("<@"+user.id+'> get fucked dumbass');
-                }).catch (err => {
-                    msg.reply('yo this dude is like god or something');
-                    console.error(err);
-                })
-            }
+            
         }   else {
             msg.reply("you probably spelled something wrong dumbass");
         }
