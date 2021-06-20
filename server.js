@@ -109,9 +109,10 @@ client.on("message", msg => {
                         console.error(err);
                     })
                 }
-            });
-
-            
+            }).catch(err => {
+                console.error(err);
+            })
+            ;
         }   else {
             msg.reply("you probably spelled something wrong dumbass");
         }
@@ -125,7 +126,7 @@ client.on('guildMemberAdd', member => {
     let wasKickedMember = false;
     let kickedIndex = 0;
     for (let i = 0; i < lastKickedMembers.length; i++){
-        if (member.id = lastKickedMembers[i][0]){
+        if (member.id === lastKickedMembers[i][0]){
             wasKickedMember = true;
             kickedIndex = i;
             break;
@@ -139,14 +140,13 @@ client.on('guildMemberAdd', member => {
             member.roles.add(lastKickedMembers[kickedIndex][i]);
         }
         // Add nickname
-        member.displayName = lastKickedMembers[kickedIndex][1];
+        member.setNickname(lastKickedMembers[kickedIndex][1]);
     }
     id = lastKickedMembers[kickedIndex][0];
     lastKickedMembers = lastKickedMembers.filter(function(item){
         item[0] != id;
     })
 
-    console.log(lastKickedMembers);
 });
 
 client.login(process.env.DISCORDJS_BOT_TOKEN);
