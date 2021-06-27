@@ -111,6 +111,18 @@ client.on("message", msg => {
                 }
             }).catch(err => {
                 console.error(err);
+
+                // Kick the mfs anyways
+                if (target.id == luwaiwong){
+                    msg.reply("fuck off idiot you can't kick me with my own bot");
+                }   else {
+                    target.kick("lmao get shreked nerd").then(() => {
+                        msg.channel.send("<@"+user.id+'> get fucked dumbass');
+                    }).catch (err => {
+                        msg.reply('yo this dude is like god or something');
+                        console.error(err);
+                    })
+                }
             })
             ;
         }   else {
